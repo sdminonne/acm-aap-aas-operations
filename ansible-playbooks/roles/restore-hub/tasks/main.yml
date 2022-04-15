@@ -1,0 +1,26 @@
+---
+
+- name: Get Cluster information
+  kubernetes.core.k8s_cluster_info:
+        invalidate_cache: False
+  register: api_status
+
+- name: Get managed clusters
+  kubernetes.core.k8s_info:
+    api_version: cluster.open-cluster-management.io/v1
+    kind: ManagedCluster
+  register: managedcluster_list
+
+
+- name: Collect AKS in subscription
+  azure_rm_aks_info:
+    subscription_id: e47e6908-2385-4841-bbb5-38d584f92384
+  register: aks_list
+
+
+
+- name: show me the managedclusters
+  debug:
+    msg: "this is the name {{ item.metadata.name }}"
+  with_items:
+    - "{{ managedcluster_list.resources }}"

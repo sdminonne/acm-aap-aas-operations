@@ -16,10 +16,10 @@ spec:
       key: cloud
       name: cloud-credentials-azure
     objectStorage:
-      bucket: aap-backup-blob-dario-test
+      bucket: aoc12-backup-restore-test
       prefix: backups
     config:
-      resourceGroup: aap-backups-dario-test-gr
-      storageAccount: velero3793d5ae1794
+      resourceGroup: sdminone-aoc12-backup-rg
+      storageAccount: sdminonnebackupsa
       subscriptionId: c7130a18-cbc9-4b44-9307-1f56446fb730
       storageAccountKeyEnvVar: AZURE_STORAGE_ACCOUNT_ACCESS_KEY

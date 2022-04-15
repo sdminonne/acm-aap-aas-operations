@@ -1,0 +1,8 @@
+---
+
+- name: Get Cluster information
+  kubernetes.core.k8s_cluster_info:
+  register: api_status
+
+- name: Get managed clusters
+    kubernetes.core.k8s:
