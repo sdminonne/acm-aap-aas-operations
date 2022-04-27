@@ -1,0 +1,9 @@
+HUB_RG:  ocp4-j5zmb-rg
+HUB_SUB: e47e6908-2385-4841-bbb5-38d584f92384
+HUB_PDNSZ: ocp4.az.asimov.lab
+
+AKS_MRG: MC_sdminonne-1-rg_sdminonne-1-private-aks_eastus
+AKS_EFFECTIVE_MRG: sdminonne-1-rg
+AKS_NAME: sdminonne-1-private-aks
+AKS_SUB: e47e6908-2385-4841-bbb5-38d584f92384
+managed_application: sdminonne-1-private-aks

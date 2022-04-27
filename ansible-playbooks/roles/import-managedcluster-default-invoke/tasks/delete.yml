@@ -19,7 +19,7 @@
 - name: Switch to Managed Cluster and Delete Import Blob
   shell: |-
     IMPORT_BLOB=$(cat {{ tempdir.path }}/{{ item }} | base64 -w 0)
-    az aks command invoke --resource-group {{ AKS_MRG }} \
+    az aks command invoke --resource-group {{ AKS_EFFECTIVE_MRG }} \
       --name {{ AKS_NAME }} \
       --subscription {{ AKS_SUB }} \
       --command "echo $IMPORT_BLOB | base64 --decode | kubectl delete -f -"

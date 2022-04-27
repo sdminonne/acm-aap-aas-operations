@@ -29,7 +29,7 @@
 - name: Switch to Managed Cluster and Apply Import Blob
   shell: |-
     IMPORT_BLOB=$(cat {{ tempdir.path }}/{{ item }} | base64 -w 0)
-    az aks command invoke --resource-group {{ AKS_MRG }} \
+    az aks command invoke --resource-group {{ AKS_EFFECTIVE_MRG }} \
       --name {{ AKS_NAME }} \
       --subscription {{ AKS_SUB }} \
       --command "echo $IMPORT_BLOB | base64 --decode | kubectl apply -f -"
@@ -41,7 +41,7 @@
   shell: |
     oc get managedcluster {{ AKS_NAME }} -n {{ AKS_NAME }} -o yaml
     az aks command invoke \
-      --resource-group {{ AKS_MRG }} \
+      --resource-group {{ AKS_EFFECTIVE_MRG }} \
       --name {{ AKS_NAME }} \
       --subscription {{ AKS_SUB }} \
       --command "kubectl get ns; kubectl get pods -n open-cluster-management-agent"
