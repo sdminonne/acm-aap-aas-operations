@@ -1,4 +1,5 @@
 ---
+
 # configure the openshift oadp operator object storage
 #
 # vars
@@ -7,12 +8,12 @@
 # - STORAGE_ACCOUNT
 # - STORAGE_SUBSCRIPTION
 
-- name: ensure storage account exists
-  azure_rm_storageaccount:
-    resource_group: "{{ STORAGE_RESOURCEGROUP }}"
-    subscription_id: "{{ STORAGE_SUBSCRIPTION}}"
-    name: "{{ STORAGE_ACCOUNT }}"
-    type: Standard_LRS
+#- name: ensure storage account exists
+#  azure_rm_storageaccount:
+#    resource_group: "{{ STORAGE_RESOURCEGROUP }}"
+#    subscription_id: "{{ STORAGE_SUBSCRIPTION }}"
+#    name: "{{ STORAGE_ACCOUNT }}"
+#    type: Standard_LRS
 
 #TODO replace this with URI
 - name: retrieve the storage account key
@@ -23,11 +24,12 @@
     STORAGE_KEY: "{{ key.stdout }}"
 
 
-- name: Ensure storage container exist
-  azure_rm_storageblob:
-    resource_group: "{{ STORAGE_RESOURCEGROUP }}"
-    storage_account_name: "{{ STORAGE_ACCOUNT }}"
-    container: "{{STORAGE_CONTAINER}}"
+#- name: Ensure storage container exist
+#  azure_rm_storageblob:
+#    resource_group: "{{ STORAGE_RESOURCEGROUP }}"
+#    subscription_id: "{{ STORAGE_SUBSCRIPTION }}"
+#    storage_account_name: "{{ STORAGE_ACCOUNT }}"
+#    container: "{{STORAGE_CONTAINER}}"
 
 
 - name: Create temporary file

@@ -1,5 +1,9 @@
 ---
 
+- name: show me the info
+  debug:
+    msg: "Connecting AKS {{ AKS_NAME }} in RG {{AKS_MRG}} in subscription {{AKS_SUB}}"
+
 - name: Get facts for resource group info
   azure.azcollection.azure_rm_resourcegroup_info:
     name: "{{ AKS_MRG }}"

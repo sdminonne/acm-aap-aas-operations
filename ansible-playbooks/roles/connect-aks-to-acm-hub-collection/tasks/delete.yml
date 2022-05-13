@@ -1,5 +1,9 @@
 ---
 
+- name: show me the info
+  debug:
+    msg: "Deconnecting AKS {{ AKS_NAME }} in RG {{AKS_MRG}} in subscription {{AKS_SUB}}"
+
 - name: Get facts for virtual network info
   azure.azcollection.azure_rm_virtualnetwork_info:
     resource_group: "{{ AKS_MRG }}"
