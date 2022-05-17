@@ -19,12 +19,16 @@
   kubernetes.core.k8s_info:
     api_version: cluster.open-cluster-management.io/v1
     kind: ManagedCluster
-  register: managedcluster_list
+    label_selectors:
+      - velero.io/restore-name #To get only restored clusters
+  register: restored_managedclusters
 
-#TODO: double check only managedcluster with label key velero.io/restore-name
-#TODO remove 'local-cluster' from mc_lists
-- set_fact:
-    mc_lists: "{{  managedcluster_list.resources | map(attribute='metadata.name') | list }}"
+# Iterate over restored managed clusters and collect their name skipping the already Joined ones
+- set_fact: mc_lists="{{ (mc_lists | default([])) + ([ mc_item.metadata.name ])}}"
+  loop: "{{ restored_managedclusters.resources }}"
+  loop_control:
+    loop_var: mc_item
+  when: mc_item.status.conditions is defined  and "ManagedClusterAvailable" not in (mc_item.status.conditions | map(attribute='reason'))
 
 
 - name: retrieve  all AKS across all subcrtiptions
@@ -34,8 +38,8 @@
 - set_fact:
     aks_IDs: "{{ list_all_aks_x_accounts.stdout }}"
 
-- name: deconnect AKS
-  include_tasks: ../roles/connect-aks-to-acm-hub-collection/tasks/delete.yml
+- name: deconnect AKS from {{OLD_HUB_PDNSZ}} and attach to {{ HUB_PDNSZ }}
+  include_tasks: ../roles/connect-aks-to-acm-hub-collection/tasks/cleanup-for-restore.yml
   vars:
      AKS_NAME:  "{{ aks_id.split('/')[8] }}"
      AKS_MRG: "{{ aks_id.split('/')[4] }}"

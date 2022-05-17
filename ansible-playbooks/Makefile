@@ -10,12 +10,12 @@ venv:
 	. $(VIRTUALENV)/bin/activate
 	$(VIRTUALENV)/bin/python3 -m pip install --upgrade pip
 	$(PIP) install ansible==2.10
-	$(PIP) install -r requirements-azure.txt
 	$(PIP) install kubernetes
 	$(PIP) install selinux
 	$(ANSIBLE-GALAXY) collection install kubernetes.core
 	${PIP} install pre-commit
 	${PIP} install detect-secrets
+	$(PIP) install -r ./requirements-azure.txt
 
 clean-venv:
 	rm -fr $(VIRTUALENV)
