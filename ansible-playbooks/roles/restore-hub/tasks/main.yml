@@ -5,15 +5,15 @@
         invalidate_cache: False
   register: api_status
 
-#- name: Creating Restore CRD to trigger restoring
-#  kubernetes.core.k8s:
-#    state: present
-#    template:
-#      - path: "restore-hub.yml"
+- name: Creating Restore CRD to trigger restoring
+  kubernetes.core.k8s:
+    state: present
+    template:
+      - path: "restore-hub.yml"
 
-#- name: Let's pause 20s to let restore running
-#  wait_for:
-#    timeout: 20
+- name: Let's pause 20s to let restore running
+  wait_for:
+    timeout: 20
 
 - name: Get managed clusters
   kubernetes.core.k8s_info:
